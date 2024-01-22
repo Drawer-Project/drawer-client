@@ -1,10 +1,7 @@
-function App() {
+import "./index.css";
 
-  return (
-    <>
-      hello world
-    </>
-  )
+function App() {
+  return <>hello world</>;
 }
 
-export default App
+export default App;
