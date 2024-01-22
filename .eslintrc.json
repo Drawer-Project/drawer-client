@@ -1,0 +1,95 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "import", "@tanstack/query"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "no-var": "error",
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "error", "info"]
+      }
+    ],
+    "eqeqeq": "error",
+    "dot-notation": "error",
+    "react/prop-types": 0,
+    "react/no-children-prop": 0,
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-unused-vars": "off",
+    "prefer-const": "warn",
+    "no-new-object": "error",
+    "no-new-func": "error",
+    "object-shorthand": ["error", "always"],
+    "prefer-arrow-callback": "error",
+    "prefer-destructuring": "error",
+    "prefer-template": "error",
+    "keyword-spacing": "error",
+    "react/display-name": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "pathGroups": [
+          {
+            "pattern": "fs",
+            "group": "builtin"
+          },
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "react-dom",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "react-router-dom",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@/*",
+            "group": "internal"
+          }
+        ]
+      }
+    ]
+  }
+}
