@@ -5,6 +5,12 @@ type LoginRequest = {
   password: string;
 };
 
+type LoginResponse = {
+  email: string;
+  userId: string;
+  accessToken: string;
+};
+
 type SignupRequest = {
   email: string;
   password: string;
@@ -21,7 +27,7 @@ export const signup = (request: SignupRequest) => {
 };
 
 export const login = (request: LoginRequest) => {
-  return httpService.post(
+  return httpService.post<LoginResponse>(
     `${import.meta.env.VITE_SERVER_URL}/api/login`,
     request,
     {

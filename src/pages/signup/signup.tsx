@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { SignupForm } from "./signup-form";
+import { SignupForm } from "./form";
 
 import { Button } from "@/components/ui/button";
 import {

@@ -1,17 +1,22 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
+import { useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 import { loginSchema, loginSchemaType } from "./schema";
 
 import { Button } from "@/components/ui/button";
 import { ErrorMessage } from "@/components/ui/error-message";
 import { Input } from "@/components/ui/input";
+import { cookieService } from "@/modules/cookie";
 import { useLoginMutation } from "@/query/auth";
+import { queryKeys } from "@/query/query-key";
 import { cn } from "@/utils/css";
+import { authStorage } from "@/utils/user";
 
 const LoginForm: React.FC = () => {
   const {
@@ -26,16 +31,18 @@ const LoginForm: React.FC = () => {
   const loginMutation = useLoginMutation();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const queryClient = useQueryClient();
 
   const onSubmit = (data: loginSchemaType) => {
     setIsSubmitting(true);
     loginMutation.mutate(data, {
-      onSuccess: () => {
-        navigate("/home");
+      onSuccess: res => {
+        queryClient.setQueryData(queryKeys.USER(res.userId), res);
+        authStorage.saveUser(res);
+        navigate("/dashboard/bookmark");
       },
       onError: err => {
-        console.error("Error during login mutation:", err);
-        setError("root.serverError", { message: "로그인에 실패하였습니다." });
+        setError("root.serverError", { message: err.message });
       },
       onSettled: () => {
         setIsSubmitting(false);
