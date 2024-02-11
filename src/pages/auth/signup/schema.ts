@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ERR_MSG, PASSWORD_REG_PATTERN } from "@/constants/schema";
+import { ERR_MSG, PASSWORD_REG_PATTERN } from "@/constants/schema.ts";
 
 const signupSchema = z
   .object({
@@ -19,7 +19,7 @@ const signupSchema = z
     message: ERR_MSG.PASSWORD_NOT_MATCHED,
   });
 
-type signupSchemaType = z.infer<typeof signupSchema>;
+type SignupSchemaType = z.infer<typeof signupSchema>;
 
-export type { signupSchemaType };
+export type { SignupSchemaType };
 export { signupSchema };

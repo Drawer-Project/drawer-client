@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { SignupForm } from "./signup-form";
+import { SignupForm } from "./form.tsx";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.tsx";
 import {
   Card,
   CardTitle,
   CardHeader,
   CardContent,
   CardDescription,
-} from "@/components/ui/card";
+} from "@/components/ui/card.tsx";
 
 const Signup: React.FC = () => {
   const [isComplete, setIsComplete] = useState(false);
@@ -31,7 +31,7 @@ const Signup: React.FC = () => {
         </CardHeader>
         <CardContent>
           {isComplete ? (
-            <Button onClick={() => navigate("/login")}>Go to Login</Button>
+            <Button onClick={() => navigate("/auth/login")}>Go to Login</Button>
           ) : (
             <SignupForm setSignup={setIsComplete} />
           )}

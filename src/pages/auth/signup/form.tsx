@@ -1,55 +1,60 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { Loader2 } from "lucide-react";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 
-import { signupSchema, signupSchemaType } from "./schema";
+import { useSignupForm } from "./use-signup-form.ts";
 
-import { Button } from "@/components/ui/button";
-import { ErrorMessage } from "@/components/ui/error-message";
-import { Input } from "@/components/ui/input";
-import { useSignupMutation } from "@/query/auth";
-import { cn } from "@/utils/css";
+import { Button } from "@/components/ui/button.tsx";
+import { ErrorMessage } from "@/components/ui/error-message.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import { cn } from "@/utils/css.ts";
 
-const SignupForm: React.FC<{
+interface SignupFormProps {
   setSignup: Dispatch<SetStateAction<boolean>>;
-}> = ({ setSignup }) => {
+}
+
+const SignupForm: React.FC<SignupFormProps> = ({ setSignup }) => {
+  // const {
+  //   register,
+  //   setError,
+  //   clearErrors,
+  //   handleSubmit,
+  //   formState: { errors, isValidating },
+  // } = useForm<signupSchemaType>({
+  //   resolver: zodResolver(signupSchema),
+  // });
+  // const signupMutation = useSignupMutation();
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // const onSubmit = (data: signupSchemaType) => {
+  //   setIsSubmitting(true);
+  //   signupMutation.mutate(data, {
+  //     onSuccess: () => {
+  //       setSignup(true);
+  //     },
+  //     onError: err => {
+  //       console.error("Error during login mutation:", err);
+  //       setError("root.serverError", { message: "로그인에 실패하였습니다." });
+  //     },
+  //     onSettled: () => {
+  //       setIsSubmitting(true);
+  //     },
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   clearErrors("root.serverError");
+  // }, [isValidating]);
+
   const {
     register,
-    setError,
-    clearErrors,
-    handleSubmit,
-    formState: { errors, isValidating },
-  } = useForm<signupSchemaType>({
-    resolver: zodResolver(signupSchema),
-  });
-  const signupMutation = useSignupMutation();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onSubmit = (data: signupSchemaType) => {
-    setIsSubmitting(true);
-    signupMutation.mutate(data, {
-      onSuccess: () => {
-        setSignup(true);
-      },
-      onError: err => {
-        console.error("Error during login mutation:", err);
-        setError("root.serverError", { message: "로그인에 실패하였습니다." });
-      },
-      onSettled: () => {
-        setIsSubmitting(true);
-      },
-    });
-  };
-
-  useEffect(() => {
-    clearErrors("root.serverError");
-  }, [isValidating]);
+    formState: { errors, isSubmitting },
+    requestSignup,
+  } = useSignupForm({ setSignup });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={requestSignup()}>
       <div className="space-y-4">
         <div className="space-y-2">
           <Label
@@ -98,7 +103,7 @@ const SignupForm: React.FC<{
       </div>
       <div className="mt-4 text-center text-sm">
         Already have an account?&nbsp;
-        <Link className="underline" to="/login">
+        <Link className="underline" to="/auth/login">
           Login
         </Link>
       </div>
