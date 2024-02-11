@@ -7,7 +7,7 @@ const DRAWER_SERVER = extractDomain(import.meta.env.VITE_SERVER_URL);
 
 const requestHeaderMap: RequestSubConfigMap = {
   [DRAWER_SERVER]: {
-    Authorization: `Bearer ${cookieService.get("access-token")}`,
+    Authorization: `Bearer ${cookieService.get("access_token")}`,
   },
 };
 

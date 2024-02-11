@@ -1,5 +1,9 @@
 import Cookies from "universal-cookie";
-import type { CookieGetOptions, CookieSetOptions } from "universal-cookie";
+import type {
+  CookieChangeOptions,
+  CookieGetOptions,
+  CookieSetOptions,
+} from "universal-cookie";
 
 import type { CookieManager } from "../interface/CookieManager";
 
@@ -24,7 +28,7 @@ class UniversalCookieManager implements CookieManager {
     this.cookies.set(key, value, { ...this.defaultOptions, ...options });
   }
 
-  remove(key: string, options?: CookieSetOptions) {
+  remove(key: string, options?: CookieChangeOptions) {
     this.cookies.remove(key, { ...this.defaultOptions, ...options });
   }
 }
