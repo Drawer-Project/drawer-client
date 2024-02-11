@@ -1,18 +1,24 @@
 import { httpService } from "@/modules/http";
 
-type LoginRequest = {
+export type LoginRequest = {
   email: string;
   password: string;
 };
 
-type SignupRequest = {
+export type LoginResponse = {
+  email: string;
+  uuid: string;
+  accessToken: string;
+};
+
+export type SignupRequest = {
   email: string;
   password: string;
 };
 
 export const signup = (request: SignupRequest) => {
   return httpService.post(
-    `${import.meta.env.VITE_SERVER_URL}/api/signup`,
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/signup`,
     request,
     {
       headers: { "content-type": "application/json" },
@@ -21,11 +27,15 @@ export const signup = (request: SignupRequest) => {
 };
 
 export const login = (request: LoginRequest) => {
-  return httpService.post(
-    `${import.meta.env.VITE_SERVER_URL}/api/login`,
+  return httpService.post<LoginResponse>(
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/login`,
     request,
     {
       headers: { "content-type": "application/json" },
     },
   );
+};
+
+export const signout = () => {
+  return httpService.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/signout`);
 };
