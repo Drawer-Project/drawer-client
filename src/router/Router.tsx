@@ -1,17 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import React from "react";
+import { RouterProvider } from "react-router-dom";
 
-import { Login } from "@/pages/login";
-import { Signup } from "@/pages/signup";
+import { routes } from "@/router/routes.tsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-]);
+const Router: React.FC = () => {
+  return <RouterProvider router={routes} />;
+};
 
-export { router };
+export { Router };
