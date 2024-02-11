@@ -1,54 +1,23 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { Loader2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-
-import { loginSchema, loginSchemaType } from "./schema";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { ErrorMessage } from "@/components/ui/error-message";
 import { Input } from "@/components/ui/input";
-import { useLoginMutation } from "@/query/auth";
+import { useLoginForm } from "@/pages/auth/login/use-login-form";
 import { cn } from "@/utils/css";
 
 const LoginForm: React.FC = () => {
   const {
     register,
-    setError,
-    clearErrors,
-    handleSubmit,
-    formState: { errors, isValidating },
-  } = useForm<loginSchemaType>({
-    resolver: zodResolver(loginSchema),
-  });
-  const loginMutation = useLoginMutation();
-  const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onSubmit = (data: loginSchemaType) => {
-    setIsSubmitting(true);
-    loginMutation.mutate(data, {
-      onSuccess: () => {
-        navigate("/home");
-      },
-      onError: err => {
-        console.error("Error during login mutation:", err);
-        setError("root.serverError", { message: "로그인에 실패하였습니다." });
-      },
-      onSettled: () => {
-        setIsSubmitting(false);
-      },
-    });
-  };
-
-  useEffect(() => {
-    clearErrors("root.serverError");
-  }, [isValidating]);
+    formState: { errors, isSubmitting },
+    requestLogin,
+  } = useLoginForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={requestLogin()}>
       <div className="space-y-4">
         <div className="space-y-2">
           <Label
@@ -93,7 +62,7 @@ const LoginForm: React.FC = () => {
       </div>
       <div className="mt-4 text-center text-sm">
         Don&apos;t have an account?&nbsp;
-        <Link className="underline" to="/signup">
+        <Link className="underline" to="/auth/signup">
           Sign up
         </Link>
       </div>

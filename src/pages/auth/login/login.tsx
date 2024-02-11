@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LoginForm } from "./login-form";
+import { LoginForm } from "./form";
 
 import {
   Card,
