@@ -15,38 +15,6 @@ interface SignupFormProps {
 }
 
 const SignupForm: React.FC<SignupFormProps> = ({ setSignup }) => {
-  // const {
-  //   register,
-  //   setError,
-  //   clearErrors,
-  //   handleSubmit,
-  //   formState: { errors, isValidating },
-  // } = useForm<signupSchemaType>({
-  //   resolver: zodResolver(signupSchema),
-  // });
-  // const signupMutation = useSignupMutation();
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // const onSubmit = (data: signupSchemaType) => {
-  //   setIsSubmitting(true);
-  //   signupMutation.mutate(data, {
-  //     onSuccess: () => {
-  //       setSignup(true);
-  //     },
-  //     onError: err => {
-  //       console.error("Error during login mutation:", err);
-  //       setError("root.serverError", { message: "로그인에 실패하였습니다." });
-  //     },
-  //     onSettled: () => {
-  //       setIsSubmitting(true);
-  //     },
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   clearErrors("root.serverError");
-  // }, [isValidating]);
-
   const {
     register,
     formState: { errors, isSubmitting },
