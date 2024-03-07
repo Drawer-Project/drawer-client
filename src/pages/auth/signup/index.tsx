@@ -1,1 +1,1 @@
-export { Signup } from "./signup.tsx";
+export { Signup as default } from "./signup.tsx";

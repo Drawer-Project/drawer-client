@@ -1,1 +1,1 @@
-export { Auth } from "./Auth.tsx";
+export { Auth as default } from "./Auth.tsx";
