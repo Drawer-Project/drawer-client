@@ -6,7 +6,7 @@ import {
 
 import { queryKeys } from "./query-key";
 import { UseMutationProps } from "./types";
-import { useUser } from "./use-user";
+import { useUser } from "./user";
 
 import {
   AddBookmarkToCollectionRequest,
@@ -27,14 +27,6 @@ import { useToast } from "@/components/ui/use-toast";
 export const useCollections = () => {
   const { user } = useUser();
 
-  /**
-   * @Todo
-   * 해당 쿼리가 사용될 때는 user가 존재한다는 것을 assert할 수 있어야 함
-   */
-  if (!user) {
-    console.error("User cannot be null in this hook.");
-  }
-
   const { data } = useSuspenseQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: queryKeys.COLLECTIONS(),
@@ -44,16 +36,8 @@ export const useCollections = () => {
   return { collections: data?.collections };
 };
 
-export const useCollection = (collectionId: number) => {
+export const useCollection = (collectionId: string) => {
   const { user } = useUser();
-
-  /**
-   * @Todo
-   * 해당 쿼리가 사용될 때는 user가 존재한다는 것을 assert할 수 있어야 함
-   */
-  if (!user) {
-    console.error("User cannot be null in this hook.");
-  }
 
   const { data } = useSuspenseQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
@@ -91,11 +75,12 @@ export const useDeleteCollection = () => {
         queryKey: queryKeys.COLLECTIONS(),
       });
     },
-    onError: error => {
+    onError: () => {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: error.stack,
+        description:
+          "A collection cannot be deleted until all bookmarks in the collection are cleared. Please remove the bookmark from your collection.",
       });
     },
   });
@@ -127,7 +112,7 @@ export const useAddBookmarkToCollection = ({
   return mutation;
 };
 
-export const useRemoveBookmarkFromCollection = () => {
+export const useRemoveBookmarkFromCollection = (collectionId: string) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -140,7 +125,7 @@ export const useRemoveBookmarkFromCollection = () => {
           "The bookmark has been successfully removed from collection.",
       });
       queryClient.invalidateQueries({
-        queryKey: queryKeys.COLLECTIONS(),
+        queryKey: queryKeys.COLLECTION(collectionId),
       });
     },
     onError: error => {
@@ -155,7 +140,7 @@ export const useRemoveBookmarkFromCollection = () => {
   return mutation;
 };
 
-export const usePrefetchCollection = (collectionId: number) => {
+export const usePrefetchCollection = (collectionId: string) => {
   const { user } = useUser();
   const queryClient = useQueryClient();
 

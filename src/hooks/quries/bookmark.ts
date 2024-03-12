@@ -15,7 +15,7 @@ import {
 } from "@/api/bookmark";
 import { useToast } from "@/components/ui/use-toast";
 import { queryKeys } from "@/hooks/quries/query-key";
-import { useUser } from "@/hooks/quries/use-user";
+import { useUser } from "@/hooks/quries/user";
 
 export const useBookmarks = () => {
   const { user } = useUser();
@@ -53,11 +53,12 @@ export const useDeleteBookmark = () => {
         queryKey: queryKeys.BOOKMARK(),
       });
     },
-    onError: error => {
+    onError: () => {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: error.stack,
+        description:
+          "Bookmarks added to a collection cannot be deleted. Please remove the bookmark from your collection and delete it completely.",
       });
     },
   });

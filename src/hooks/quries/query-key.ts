@@ -3,7 +3,7 @@ const queryKeys = {
   BOOKMARK: () => ["bookmarks"],
   DASHBOARD: () => ["dashbaord"],
   COLLECTIONS: () => ["collections"],
-  COLLECTION: (collectionId: number) => ["collections", collectionId],
+  COLLECTION: (collectionId: string) => ["collections", collectionId],
 };
 
 const frezzedKeys = Object.freeze(queryKeys);
