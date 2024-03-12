@@ -8,7 +8,7 @@ export type LoginRequest = {
 export type LoginResponse = {
   email: string;
   uuid: string;
-  accessToken: string;
+  profileImageUrl: string;
 };
 
 export type SignupRequest = {

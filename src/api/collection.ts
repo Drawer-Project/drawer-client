@@ -9,22 +9,22 @@ export type CreateCollectionRequest = {
 export type CreateCollectionRequestBody = Omit<CreateCollectionRequest, "uuid">;
 
 export type CreateCollectionResponse = {
-  collectionId: number;
+  collectionId: string;
   name: string;
   description: string;
 };
 
 export type ReadColletionRequest = {
   uuid: string;
-  collectionId: number;
+  collectionId: string;
 };
 
 export type ReadCollectionResponse = {
-  collectionId: number;
+  collectionId: string;
   name: string;
   description: string;
   bookmarks: Array<{
-    bookmarkId: number;
+    bookmarkId: string;
     title: string;
     url: string;
   }>;
@@ -36,7 +36,7 @@ export type ReadColletionsRequest = {
 
 export type ReadCollectionsResponse = {
   collections: Array<{
-    collectionId: number;
+    collectionId: string;
     name: string;
     description: string;
   }>;
@@ -44,7 +44,7 @@ export type ReadCollectionsResponse = {
 
 export type UpdateCollectionRequest = {
   uuid: string;
-  collectionId: number;
+  collectionId: string;
   name: string;
   description: string;
 };
@@ -55,20 +55,20 @@ export type UpdateCollectionRequestBody = Omit<
 >;
 
 export type UpdateCollectionResponse = {
-  collectionId: number;
+  collectionId: string;
   name: string;
   description: string;
 };
 
 export type DeleteCollectionRequest = {
   uuid: string;
-  collectionId: number;
+  collectionId: string;
 };
 
 export type AddBookmarkToCollectionRequest = {
   uuid: string;
-  collectionId: number;
-  bookmarkId: number;
+  collectionId: string;
+  bookmarkId: string;
 };
 
 export type AddBookmarkToCollectionBody = Omit<
@@ -77,11 +77,11 @@ export type AddBookmarkToCollectionBody = Omit<
 >;
 
 export type AddBookmarkToCollectionResponse = {
-  collectionId: number;
+  collectionId: string;
   name: string;
   description: string;
   bookmark: {
-    bookmarkId: number;
+    bookmarkId: string;
     title: string;
     url: string;
   };
@@ -89,8 +89,8 @@ export type AddBookmarkToCollectionResponse = {
 
 export type RemoveBookmarkFromCollectionRequest = {
   uuid: string;
-  collectionId: number;
-  bookmarkId: number;
+  collectionId: string;
+  bookmarkId: string;
 };
 
 export const createCollection = (request: CreateCollectionRequest) => {
@@ -130,7 +130,7 @@ export const deleteCollection = (request: DeleteCollectionRequest) => {
 
 export const readCollection = (request: ReadColletionRequest) => {
   return httpService.get<ReadCollectionResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}`,
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}/bookmarks`,
   );
 };
 

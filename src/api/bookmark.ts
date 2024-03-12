@@ -1,14 +1,14 @@
 import { httpService } from "@/modules/http";
 
 export type CreateBookmarkRequest = {
-  collectionId: number | null;
+  collectionId: string | null;
   uuid: string;
   url: string;
   title: string;
 };
 
 export type CreateBookmarkResponse = {
-  bookmarkId: number;
+  bookmarkId: string;
   url: string;
   title: string;
 };
@@ -19,7 +19,7 @@ export type ReadBookmarksRequest = {
 
 export type ReadBookmarksResponse = {
   bookmarks: Array<{
-    bookmarkId: number;
+    bookmarkId: string;
     url: string;
     title: string;
   }>;
@@ -27,7 +27,7 @@ export type ReadBookmarksResponse = {
 
 export type DeleteBookmarkRequest = {
   uuid: string;
-  bookmarkId: number;
+  bookmarkId: string;
 };
 
 export const createBookmark = (request: CreateBookmarkRequest) => {

@@ -1,12 +1,8 @@
 import { httpService } from "@/modules/http";
 
-type CheckCollectionNameRequest = {
+export type CheckCollectionNameRequest = {
+  userId: string;
   collectionName: string;
-};
-
-type CheckCollectionNameResponse = {
-  status: number;
-  message: string;
 };
 
 /**
@@ -14,7 +10,7 @@ type CheckCollectionNameResponse = {
  * replact stringfied query param to `URLSearchParams` object
  */
 export const checkCollectionName = (request: CheckCollectionNameRequest) => {
-  return httpService.post<CheckCollectionNameResponse, void>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/check-duplicate-collection-name?name=${request.collectionName}`,
+  return httpService.get(
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.userId}/check-duplicate-collection-name?name=${request.collectionName}`,
   );
 };
