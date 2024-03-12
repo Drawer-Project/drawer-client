@@ -5,10 +5,12 @@ import { extractDomain } from "./utils";
 
 const DRAWER_SERVER = extractDomain(import.meta.env.VITE_SERVER_URL);
 
-const requestHeaderMap: RequestSubConfigMap = {
-  [DRAWER_SERVER]: {
-    Authorization: `Bearer ${cookieService.get("access_token")}`,
-  },
+const createRequestHeaders = (): RequestSubConfigMap => {
+  return {
+    [DRAWER_SERVER]: {
+      Authorization: `Bearer ${cookieService.get("accessToken")}`,
+    },
+  };
 };
 
-export { requestHeaderMap };
+export { createRequestHeaders };

@@ -1,10 +1,17 @@
 import axios from "axios";
-import type { AxiosInstance, AxiosRequestConfig, Method } from "axios";
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method,
+} from "axios";
 
-import { requestHeaderMap } from "../constants";
+import { createRequestHeaders } from "../constants";
 import type { HttpHandler } from "../interface/HttpHandler";
 import type { RequestConfig } from "../types";
 import { extractDomain, getRequestHeader, mergeObjects } from "../utils";
+
+import { authStore } from "@/store/auth-store";
 
 type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> & RequestConfig;
 
@@ -31,6 +38,8 @@ class AxiosHttpHandler implements HttpHandler {
       data,
       ...this.getRequestConfig(url, config),
     });
+
+    this.setToken(response);
 
     return response.data;
   }
@@ -64,10 +73,18 @@ class AxiosHttpHandler implements HttpHandler {
     config?: AxiosRequestConfigAdaptor,
   ): AxiosRequestConfig {
     const defaultConfig: AxiosRequestConfig = {
-      headers: getRequestHeader(requestHeaderMap, extractDomain(url)),
+      headers: getRequestHeader(createRequestHeaders(), extractDomain(url)),
     };
 
     return mergeObjects(defaultConfig, config);
+  }
+
+  private setToken(response: AxiosResponse) {
+    if (response.headers.authorization) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [_, token] = (response.headers.authorization as string).split(" ");
+      authStore.saveToken(token);
+    }
   }
 }
 
