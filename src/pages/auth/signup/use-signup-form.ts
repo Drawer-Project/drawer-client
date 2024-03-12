@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { signupSchema, SignupSchemaType } from "./schema";
 
-import { useSignup } from "@/hooks/use-signup";
+import { useSignup } from "@/hooks/quries/auth";
 
 interface useSignupFormProps {
   setSignup: Dispatch<SetStateAction<boolean>>;

@@ -11,8 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useUser } from "@/hooks/quries/use-user";
-import { useLogout } from "@/hooks/use-logout";
+import { useLogout } from "@/hooks/quries/auth";
+import { useUser } from "@/hooks/quries/user";
 
 const DashBoardAccount: React.FC = () => {
   const navigate = useNavigate();

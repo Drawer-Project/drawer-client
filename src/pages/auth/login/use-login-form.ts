@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { useLogin } from "@/hooks/use-login";
+import { useLogin } from "@/hooks/quries/auth";
 import { loginSchema, loginSchemaType } from "@/pages/auth/login/schema";
 
 export const useLoginForm = () => {

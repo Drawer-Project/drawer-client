@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ERR_MSG, PASSWORD_REG_PATTERN } from "@/constants/schema";
+import { ERR_MSG, PASSWORD_REG_PATTERN } from "@/constants/auth";
 
 const loginSchema = z.object({
   email: z

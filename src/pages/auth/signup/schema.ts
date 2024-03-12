@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ERR_MSG, PASSWORD_REG_PATTERN } from "@/constants/schema.ts";
+import { ERR_MSG, PASSWORD_REG_PATTERN } from "@/constants/auth";
 
 const signupSchema = z
   .object({

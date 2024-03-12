@@ -1,12 +1,12 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { useUser } from "@/hooks/quries/use-user";
+import { useUser } from "@/hooks/quries/user";
 
 const Auth: React.FC = () => {
   const { user } = useUser();
 
-  if (user?.uuid) return <Navigate to={"/dashboard/bookmark"} replace />;
+  if (user) return <Navigate to="/dashboard/bookmark" replace />;
 
   return (
     <>
