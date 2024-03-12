@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
-import { useUser } from "@/hooks/quries/use-user";
+import { useUser } from "@/hooks/quries/user";
 import Auth from "@/pages/auth";
 import Login from "@/pages/auth/login";
 import Signup from "@/pages/auth/signup";
@@ -21,7 +21,7 @@ import NotFound from "@/pages/notfound";
 const ProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
   const { user } = useUser();
 
-  if (!user?.uuid) return <Navigate to="/auth/login" replace />;
+  if (!user) return <Navigate to="/auth/login" replace />;
 
   return <>{children}</>;
 };
@@ -34,8 +34,10 @@ const Router: React.FC = () => {
     <>
       {/* pages */}
       <Routes location={previousLocation || location}>
+        <Route path="/" element={<Navigate to="/auth/login" />}></Route>
         <Route path="/auth" element={<Auth />}>
-          <Route path="login" element={<Login />} index />
+          <Route index element={<Login />} />
+          <Route path="login" index element={<Login />} />
           <Route path="signup" element={<Signup />} />
         </Route>
         <Route
@@ -46,7 +48,8 @@ const Router: React.FC = () => {
             </ProtectedRoute>
           }
         >
-          <Route path="bookmark" element={<Bookmark />} index />
+          <Route index element={<Bookmark />} />
+          <Route path="bookmark" element={<Bookmark />} />
           <Route path="collections/:collectionId" element={<Collection />} />
           <Route path="collections" element={<Collections />} />
           <Route path="settings" element={<Settings />} />
