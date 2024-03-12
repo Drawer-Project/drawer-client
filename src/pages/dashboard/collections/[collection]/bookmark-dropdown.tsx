@@ -9,11 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRemoveBookmarkFromCollection } from "@/hooks/quries/collection";
-import { useUser } from "@/hooks/quries/use-user";
+import { useUser } from "@/hooks/quries/user";
 
 interface BookmarkDropDownProps {
-  bookmarkId: number;
-  collectionId: number;
+  bookmarkId: string;
+  collectionId: string;
 }
 
 const BookmarkDropDown: React.FC<BookmarkDropDownProps> = ({
@@ -21,7 +21,7 @@ const BookmarkDropDown: React.FC<BookmarkDropDownProps> = ({
   collectionId,
 }) => {
   const { user } = useUser();
-  const mutation = useRemoveBookmarkFromCollection();
+  const mutation = useRemoveBookmarkFromCollection(collectionId);
 
   const handleRemove = () => {
     mutation.mutate({

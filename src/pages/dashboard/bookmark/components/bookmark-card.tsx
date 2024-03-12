@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getDomainFromUrl } from "@/utils/url";
 
 interface BookmarkCardProps {
@@ -12,7 +11,6 @@ interface BookmarkCardProps {
 }
 
 const BookmarkCard: React.FC<BookmarkCardProps> = ({
-  favicon,
   url,
   title,
   children,
@@ -22,11 +20,7 @@ const BookmarkCard: React.FC<BookmarkCardProps> = ({
       className="border shadow-sm rounded-lg w-full px-4 py-2 hover:shadow-lg cursor-pointer"
       to={url}
     >
-      <div className="flex gap-4 items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage alt="@shadcn" src={favicon} />
-          <AvatarFallback>AC</AvatarFallback>
-        </Avatar>
+      <div className="flex justify-between gap-4 items-center">
         <span className="text-xl text-center font-semibold tracking-tight basis-72 shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">
           {getDomainFromUrl(url) || url}
         </span>

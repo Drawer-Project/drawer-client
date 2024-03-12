@@ -17,7 +17,7 @@ import {
   useEditCollection,
 } from "@/hooks/quries/collection";
 import { queryKeys } from "@/hooks/quries/query-key";
-import { useUser } from "@/hooks/quries/use-user";
+import { useUser } from "@/hooks/quries/user";
 
 export const useCreateCollectionForm = ({ afterSubmit }: FormProps) => {
   const queryClient = useQueryClient();
@@ -68,7 +68,12 @@ export const useCreateCollectionForm = ({ afterSubmit }: FormProps) => {
 export const useEditCollectionForm = ({ afterSubmit }: FormProps) => {
   const queryClient = useQueryClient();
   const { collectionId } = useParams();
-  const { collection } = useCollection(parseInt(collectionId as string));
+
+  if (!collectionId) {
+    throw new Error("collectionId cannot be undefined in this hook.");
+  }
+
+  const { collection } = useCollection(collectionId);
 
   const { toast } = useToast();
   const { user } = useUser();
@@ -104,7 +109,7 @@ export const useEditCollectionForm = ({ afterSubmit }: FormProps) => {
     const onSubmit = (data: CollectionCreationSchemaType) => {
       mutation.mutate({
         uuid: user!.uuid,
-        collectionId: parseInt(collectionId as string),
+        collectionId,
         ...data,
       });
       afterSubmit();
@@ -123,7 +128,7 @@ export const useDeleteCollectionForm = ({ afterSubmit }: FormProps) => {
   const { user } = useUser();
   const deleteCollectionMutation = useDeleteCollection();
 
-  const request = (collectionId: number) => {
+  const request = (collectionId: string) => {
     deleteCollectionMutation.mutate({
       uuid: user!.uuid,
       collectionId,

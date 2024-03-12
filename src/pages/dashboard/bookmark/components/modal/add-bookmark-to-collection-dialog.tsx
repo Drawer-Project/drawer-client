@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
-} from "@/components/modal/modal";
+} from "@/components/ui/modal";
 import { useDialog } from "@/hooks/use-dialog";
 
 const AddBookmarkToCollectionDialog: React.FC = () => {

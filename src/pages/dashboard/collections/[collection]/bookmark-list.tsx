@@ -17,7 +17,7 @@ const BookmarkList: React.FC = () => {
 
   const {
     collection: { bookmarks },
-  } = useCollection(parseInt(collectionId));
+  } = useCollection(collectionId);
 
   const renderBookmarks = () => {
     if (bookmarks.length === 0) {
@@ -34,7 +34,7 @@ const BookmarkList: React.FC = () => {
           <BookmarkCard key={bookmarkId} {...restProps}>
             <BookmarkDropDown
               bookmarkId={bookmarkId}
-              collectionId={parseInt(collectionId)}
+              collectionId={collectionId}
             />
           </BookmarkCard>
         ))}

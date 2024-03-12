@@ -15,7 +15,7 @@ import { toast, useToast } from "@/components/ui/use-toast";
 import { useCreateBookmark } from "@/hooks/quries/bookmark";
 import { useAddBookmarkToCollection } from "@/hooks/quries/collection";
 import { queryKeys } from "@/hooks/quries/query-key";
-import { useUser } from "@/hooks/quries/use-user";
+import { useUser } from "@/hooks/quries/user";
 
 export const useCreateBookmarkForm = ({ afterSubmit }: FormProps) => {
   const queryClient = useQueryClient();
@@ -71,6 +71,11 @@ export const useCreateBookmarkForm = ({ afterSubmit }: FormProps) => {
 export const useAddBookmarkToCollectionForm = ({ afterSubmit }: FormProps) => {
   const { user } = useUser();
   const { bookmarkId } = useParams();
+
+  if (!bookmarkId) {
+    throw new Error("bookmark cannot be undefined in this hook.");
+  }
+
   const form = useForm<AddBookmarkToCollectionSchemaType>({
     resolver: zodResolver(addBookmarkToCollectionSchema),
   });
@@ -95,11 +100,11 @@ export const useAddBookmarkToCollectionForm = ({ afterSubmit }: FormProps) => {
   });
 
   const request = () => {
-    const onSubmit = (data: AddBookmarkToCollectionSchemaType) => {
+    const onSubmit = ({ collectionId }: AddBookmarkToCollectionSchemaType) => {
       mutation.mutate({
         uuid: user!.uuid,
-        bookmarkId: +bookmarkId!,
-        collectionId: +data.collectionId,
+        bookmarkId,
+        collectionId,
       });
       afterSubmit();
     };

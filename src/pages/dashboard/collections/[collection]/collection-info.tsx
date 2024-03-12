@@ -9,7 +9,7 @@ export const CollectionInfo = () => {
     throw new Error("collectionId cannot be undefined in this components");
   }
 
-  const { collection } = useCollection(parseInt(collectionId));
+  const { collection } = useCollection(collectionId);
 
   return (
     <div className="flex flex-col gap-3">

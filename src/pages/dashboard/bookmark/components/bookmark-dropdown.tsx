@@ -11,10 +11,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDeleteBookmark } from "@/hooks/quries/bookmark";
-import { useUser } from "@/hooks/quries/use-user";
+import { useUser } from "@/hooks/quries/user";
 
 interface BookmarkDropDownProps {
-  bookmarkId: number;
+  bookmarkId: string;
 }
 
 const BookmarkDropDown: React.FC<BookmarkDropDownProps> = ({ bookmarkId }) => {
@@ -22,7 +22,7 @@ const BookmarkDropDown: React.FC<BookmarkDropDownProps> = ({ bookmarkId }) => {
   const location = useLocation();
   const deleteBookmarkMutation = useDeleteBookmark();
 
-  const handleDelete = (bookmarkId: number) => {
+  const handleDelete = (bookmarkId: string) => {
     deleteBookmarkMutation.mutate({
       uuid: user!.uuid,
       bookmarkId,

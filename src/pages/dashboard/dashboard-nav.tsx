@@ -61,7 +61,6 @@ const SingleTypeNavItem: React.FC<NavItemProps> = ({
     <Link
       className={`${curPath === path ? "bg-gray-100" : ""} flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50`}
       to={path}
-      key={path}
     >
       {icon}
       {name}
@@ -91,9 +90,11 @@ const MultipleTypeNavItem: React.FC<NavItemProps> = ({
               {name}
             </div>
           </Link>
-          <Accordion.Trigger className="hover:bg-gray-100 rounded-full">
-            <ChevronDown />
-          </Accordion.Trigger>
+          {children && children.length > 0 && (
+            <Accordion.Trigger className="hover:bg-gray-100 rounded-full">
+              <ChevronDown />
+            </Accordion.Trigger>
+          )}
         </div>
         {children?.map(({ name, path }) => (
           <Accordion.Content key={path}>
@@ -112,7 +113,7 @@ const MultipleTypeNavItem: React.FC<NavItemProps> = ({
 };
 
 type Collection = {
-  collectionId: number;
+  collectionId: string;
   name: string;
   description: string;
 };
@@ -144,9 +145,9 @@ const DashBoardNav: React.FC = () => {
     <nav className="grid items-start px-4 text-sm font-medium">
       {CATEGORIES.map(({ type, ...rest }) => {
         return type === "single" ? (
-          <SingleTypeNavItem curPath={pathname} {...rest} />
+          <SingleTypeNavItem key={rest.path} curPath={pathname} {...rest} />
         ) : (
-          <MultipleTypeNavItem curPath={pathname} {...rest} />
+          <MultipleTypeNavItem key={rest.path} curPath={pathname} {...rest} />
         );
       })}
     </nav>

@@ -1,8 +1,6 @@
-import { SearchIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 const CollectionTopBar: React.FC = () => {
   const location = useLocation();
@@ -13,7 +11,8 @@ const CollectionTopBar: React.FC = () => {
         Collections
       </h1>
       <div className="flex items-center">
-        <form className="w-full">
+        {/* @todo */}
+        {/* <form className="w-full">
           <div className="relative">
             <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
             <Input
@@ -22,12 +21,12 @@ const CollectionTopBar: React.FC = () => {
               type="search"
             />
           </div>
-        </form>
+        </form> */}
         <Link
           to={"/modal/create/collections"}
           state={{ previousLocation: location }}
         >
-          <Button>Add Bookmark</Button>
+          <Button>Add Collection</Button>
         </Link>
       </div>
     </>

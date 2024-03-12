@@ -2,14 +2,14 @@ import { useParams } from "react-router-dom";
 
 import { useDeleteCollectionForm } from "../../use-collection-form";
 
+import { Button } from "@/components/ui/button";
 import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogRoot,
   DialogTitle,
-} from "@/components/modal/modal";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/modal";
 import { useDialog } from "@/hooks/use-dialog";
 
 const DeleteCollectionDialog = () => {
@@ -31,7 +31,7 @@ const DeleteCollectionDialog = () => {
         </DialogDescription>
       </DialogHeader>
       <DialogFooter>
-        <Button type="submit" onClick={() => request(parseInt(collectionId))}>
+        <Button type="submit" onClick={() => request(collectionId)}>
           Delete Collection
         </Button>
       </DialogFooter>

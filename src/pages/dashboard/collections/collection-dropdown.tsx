@@ -13,7 +13,7 @@ import {
 import { usePrefetchCollection } from "@/hooks/quries/collection";
 
 interface CollectionDropDown {
-  collectionId: number;
+  collectionId: string;
 }
 
 const CollectionDropDown: React.FC<CollectionDropDown> = ({ collectionId }) => {

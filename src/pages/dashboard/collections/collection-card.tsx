@@ -6,7 +6,7 @@ import { CollectionDropDown } from "./collection-dropdown";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface CollectionCardProps {
-  collectionId: number;
+  collectionId: string;
   name: string;
   description: string;
   itemCount: number;
