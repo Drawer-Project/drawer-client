@@ -54,16 +54,24 @@ export const useUser = () => {
 export const useUpdateProfileImage = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { user } = useUser();
 
   const mutation = useMutation({
     mutationFn: (request: UpdateProfileImageRequest) =>
       updateProfileImage(request),
-    onSuccess: () => {
+    onMutate: variables => {
+      const newUser = {
+        profileImageUrl: variables.profileImage,
+        ...user,
+      };
+
+      queryClient.setQueryData(queryKeys.USER(), () => newUser);
+    },
+    onSuccess: data => {
+      queryClient.setQueryData(queryKeys.USER(), () => data);
+      window.location.replace("/");
       toast({
         description: "Your profile picture has been successfully changed.",
-      });
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.USER(),
       });
     },
     onError: () => {

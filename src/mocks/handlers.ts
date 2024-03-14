@@ -75,6 +75,8 @@ export const handlers = [
       bookmarkdb.push(boookmark);
 
       if (collectionId) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         const collection = findCollectionById(collectionId);
         collection?.bookmarks?.push({
           bookmarkId: boookmark.bookmarkId,
@@ -138,6 +140,8 @@ export const handlers = [
       const { bookmarkId } = await request.json();
 
       const collection = findCollectionById(+collectionId);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       const bookmark = findBookmarkById(bookmarkId);
 
       if (bookmark) {

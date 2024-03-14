@@ -26,14 +26,16 @@ const DashBoardAccount: React.FC = () => {
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            className="rounded-full border border-gray-800"
-            size="icon"
-            variant="ghost"
-          >
+          <Button className="rounded-full" size="icon" variant="ghost">
             <Avatar className="flex h-9 w-9">
-              <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-              <AvatarFallback />
+              <AvatarImage
+                className="rounded-full flex h-9 w-9"
+                alt="@shadcn"
+                src={user?.profileImageUrl}
+              />
+              <AvatarFallback className="rounded-full flex h-9 w-9 bg-black">
+                AC
+              </AvatarFallback>
             </Avatar>
             <span className="sr-only">Toggle user menu</span>
           </Button>

@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./domain";
+
 import { httpService } from "@/modules/http";
 
 export type CreateCollectionRequest = {
@@ -98,7 +100,7 @@ export const createCollection = (request: CreateCollectionRequest) => {
     CreateCollectionResponse,
     CreateCollectionRequestBody
   >(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/collections`,
     {
       name: request.name,
       description: request.description,
@@ -111,7 +113,7 @@ export const createCollection = (request: CreateCollectionRequest) => {
 
 export const updateCollection = (request: UpdateCollectionRequest) => {
   return httpService.put<UpdateCollectionResponse, UpdateCollectionRequestBody>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}`,
     {
       name: request.name,
       description: request.description,
@@ -124,19 +126,19 @@ export const updateCollection = (request: UpdateCollectionRequest) => {
 
 export const deleteCollection = (request: DeleteCollectionRequest) => {
   return httpService.delete(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}`,
   );
 };
 
 export const readCollection = (request: ReadColletionRequest) => {
   return httpService.get<ReadCollectionResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}/bookmarks`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}/bookmarks`,
   );
 };
 
 export const readCollections = (request: ReadColletionsRequest) => {
   return httpService.get<ReadCollectionsResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/collections`,
   );
 };
 
@@ -147,7 +149,7 @@ export const addBookmarkToCollection = (
     AddBookmarkToCollectionResponse,
     AddBookmarkToCollectionBody
   >(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}/bookmarks`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}/bookmarks`,
     {
       bookmarkId: request.bookmarkId,
     },
@@ -161,6 +163,6 @@ export const removeBookmarkFromCollection = (
   request: RemoveBookmarkFromCollectionRequest,
 ) => {
   return httpService.delete(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}/bookmarks/${request.bookmarkId}`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/collections/${request.collectionId}/bookmarks/${request.bookmarkId}`,
   );
 };

@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./domain";
+
 import { httpService } from "@/modules/http";
 
 export type LoginRequest = {
@@ -17,18 +19,14 @@ export type SignupRequest = {
 };
 
 export const signup = (request: SignupRequest) => {
-  return httpService.post(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/signup`,
-    request,
-    {
-      headers: { "content-type": "application/json" },
-    },
-  );
+  return httpService.post(`${SERVER_URL}/api/v1/signup`, request, {
+    headers: { "content-type": "application/json" },
+  });
 };
 
 export const login = (request: LoginRequest) => {
   return httpService.post<LoginResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/login`,
+    `${SERVER_URL}/api/v1/login`,
     request,
     {
       headers: { "content-type": "application/json" },
@@ -37,5 +35,5 @@ export const login = (request: LoginRequest) => {
 };
 
 export const signout = () => {
-  return httpService.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/signout`);
+  return httpService.post(`${SERVER_URL}/api/v1/signout`);
 };

@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./domain";
+
 import { httpService } from "@/modules/http";
 
 export type CreateBookmarkRequest = {
@@ -37,7 +39,7 @@ export const createBookmark = (request: CreateBookmarkRequest) => {
   };
 
   return httpService.post<CreateBookmarkResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/bookmarks`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/bookmarks`,
     request.collectionId
       ? { ...baseObject, collectionId: request.collectionId }
       : baseObject,
@@ -49,12 +51,12 @@ export const createBookmark = (request: CreateBookmarkRequest) => {
 
 export const readBookmarks = (request: ReadBookmarksRequest) => {
   return httpService.get<ReadBookmarksResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/bookmarks`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/bookmarks`,
   );
 };
 
 export const deleteBookmark = (request: DeleteBookmarkRequest) => {
   return httpService.delete(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}/bookmarks/${request.bookmarkId}`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}/bookmarks/${request.bookmarkId}`,
   );
 };

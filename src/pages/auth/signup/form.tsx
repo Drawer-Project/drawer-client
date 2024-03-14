@@ -65,9 +65,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ setSignup }) => {
             "Sign Up"
           )}
         </Button>
-        <Button className="w-full" variant="outline">
-          Sign Up with Google
-        </Button>
       </div>
       <div className="mt-4 text-center text-sm">
         Already have an account?&nbsp;

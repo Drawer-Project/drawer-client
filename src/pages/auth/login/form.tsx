@@ -41,9 +41,6 @@ const LoginForm: React.FC = () => {
             >
               password
             </Label>
-            <Link className="ml-auto inline-block text-sm underline" to="#">
-              Forgot your password?
-            </Link>
           </div>
           <Input id="password" type="password" {...register("password")} />
           <ErrorMessage message={errors.password?.message} />
@@ -55,9 +52,6 @@ const LoginForm: React.FC = () => {
           ) : (
             "Login"
           )}
-        </Button>
-        <Button className="w-full" variant="outline">
-          Login with Google
         </Button>
       </div>
       <div className="mt-4 text-center text-sm">

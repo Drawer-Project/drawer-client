@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./domain";
+
 import { httpService } from "@/modules/http";
 
 export type CheckCollectionNameRequest = {
@@ -11,6 +13,6 @@ export type CheckCollectionNameRequest = {
  */
 export const checkCollectionName = (request: CheckCollectionNameRequest) => {
   return httpService.get(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.userId}/check-duplicate-collection-name?name=${request.collectionName}`,
+    `${SERVER_URL}/api/v1/users/${request.userId}/check-duplicate-collection-name?name=${request.collectionName}`,
   );
 };

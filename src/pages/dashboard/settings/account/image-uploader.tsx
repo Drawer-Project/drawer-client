@@ -1,33 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { ReactNode, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+
+import { ImageUploaderSchemaType, imageUploaderSchema } from "./schema";
 
 import { Button } from "@/components/ui/button";
 import { ErrorMessage } from "@/components/ui/error-message";
 import { Input } from "@/components/ui/input";
 import { useUpdateProfileImage, useUser } from "@/hooks/quries/user";
-
-const ACCEPTED_IMAGE_TYPES = ["image/png"];
-
-const schema = z.object({
-  profile: z.instanceof(FileList).refine(
-    files => {
-      return Array.from(files).every(file => {
-        if (file === undefined) {
-          return true;
-        }
-
-        return ACCEPTED_IMAGE_TYPES.includes(file.type);
-      });
-    },
-    {
-      message: "Unsupported file type.",
-    },
-  ),
-});
-
-type schemaType = z.infer<typeof schema>;
 
 export interface renderProps {
   files: FileList;
@@ -42,10 +22,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ render }) => {
   const mutation = useUpdateProfileImage();
   const { user } = useUser();
 
-  const { handleSubmit, register, formState, watch } = useForm<schemaType>({
-    mode: "onSubmit",
-    resolver: zodResolver(schema),
-  });
+  const { handleSubmit, register, formState, watch } =
+    useForm<ImageUploaderSchemaType>({
+      mode: "onSubmit",
+      resolver: zodResolver(imageUploaderSchema),
+    });
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -53,7 +34,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ render }) => {
     fileInputRef.current?.click();
   };
 
-  const onSubmit = (data: schemaType) => {
+  const onSubmit = (data: ImageUploaderSchemaType) => {
     const formData = new FormData();
     formData.append("file", data.profile[0]);
 

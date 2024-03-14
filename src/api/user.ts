@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./domain";
+
 import { httpService } from "@/modules/http";
 
 export type ReadUserInfoResponse = {
@@ -19,16 +21,14 @@ export type UpdateProfileImageRequest = {
  * In order to check the specific process please check the 'http' module.
  */
 export const readUserInfo = async () => {
-  return httpService.get<ReadUserInfoResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users`,
-  );
+  return httpService.get<ReadUserInfoResponse>(`${SERVER_URL}/api/v1/users`);
 };
 
 export const updateProfileImage = async (
   request: UpdateProfileImageRequest,
 ) => {
   return httpService.patch(
-    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/${request.uuid}`,
+    `${SERVER_URL}/api/v1/users/${request.uuid}`,
     request.profileImage,
   );
 };
