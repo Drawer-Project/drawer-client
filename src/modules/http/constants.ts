@@ -3,7 +3,9 @@ import { cookieService } from "../cookie";
 import type { RequestSubConfigMap } from "./types";
 import { extractDomain } from "./utils";
 
-const DRAWER_SERVER = extractDomain(import.meta.env.VITE_SERVER_URL);
+import { SERVER_URL } from "@/api/domain";
+
+const DRAWER_SERVER = extractDomain(SERVER_URL);
 
 const createRequestHeaders = (): RequestSubConfigMap => {
   return {
